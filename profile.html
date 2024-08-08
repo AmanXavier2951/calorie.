@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ICC | Home</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+/*            background-color: #f4f4f4;*/
+            margin: 0;
+            padding: 0;
+        }
+
+        #mainbanner{
+/*            background:#fff;*/
+            color: #dddddd;
+        }
+        #header{
+            background:#ffffff;
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+            color: #dddddd;
+        }
+        .logo{
+            color: #40A578;
+            font-weight: bolder;
+        }
+        h1{
+            color: #373A40;
+        }
+
+        .Calcbtn{
+            background-color: #DC5F00;
+            padding: 12px 30px;
+            color: #dddddd;
+            text-decoration: none;
+            border: none;
+            transition: 0.5s;
+        }
+        .Calcbtn:hover{
+           box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+        #fcard{
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+/*            padding: 20px;*/
+/*            margin: 10px;*/
+            display: block;
+            text-align: center;
+        }
+
+          .ccard{
+/*            width: 350px;*/
+            padding: 20px;
+            margin: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+         .ccard .iconbg{
+            background: #111;
+            width: 700px;
+/*            height: 200px;*/
+            background-color: #000;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .ccard .iconbg img{
+            width: 100%;
+        }
+
+        @media screen and (max-width: 500px) {
+    .p-5, .px-5 ,.p-4{
+        padding: 10px !important; /* Adjust padding as needed */
+    }
+    .ccard{
+        display: block;
+    }
+    .ccard .iconbg{
+            width: 250px;
+        }
+}
+
+    </style>
+    <script>
+function displayResults() {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const name = urlParams.get('name');
+    const age = parseFloat(urlParams.get('age'));
+    const height = parseFloat(urlParams.get('height'));
+    const weight = parseFloat(urlParams.get('weight'));
+    const gender = urlParams.get('gender');
+    const state = urlParams.get('state');
+    // const bmi = urlParams.get('bmi');
+
+    document.getElementById('name').textContent = `Hi, ${name}`;
+    // document.getElementById('age').textContent = `Age: ${age}`;
+    // document.getElementById('gender').textContent = `Gender: ${gender}`;
+    // document.getElementById('state').textContent = `State: ${state}`;
+    // document.getElementById('height').textContent = `Height: ${height} meters`;
+    // document.getElementById('weight').textContent = `Weight: ${weight} kg`;
+    // document.getElementById('bmi').textContent = `BMI: ${bmi}`;
+
+    let bmr;
+
+      if (gender === 'female') {
+        bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+    } else if (gender === 'male') {
+        bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+    }
+
+    const heightInMeters = height / 100;
+    const bmi = weight / (heightInMeters * heightInMeters);
+
+    let title = "";
+    let description = "";
+    let imgName = "";
+
+    if (bmi <= 18.5) {
+        title = "You are currently underweight";
+        description = "Your BMI indicates that you are currently underweight. It might be beneficial to consult with a healthcare professional or a nutritionist to explore ways to reach a healthier weight. Maintaining a balanced diet and proper nutrition can help improve your overall well-being.";
+        imgName = "underM.jpg";
+    } else if (bmi >= 18.5 && bmi <= 24.9) {
+        title = "You have normal weight";
+        description = "Your BMI falls within the normal weight range, which is great! Keep up the good work by maintaining a balanced diet and regular physical activity to continue supporting your health.";
+        imgName = "normalM.jpg";
+    } else if (bmi >= 25 && bmi <= 29.9) {
+        title = "You are slightly above the normal weight";
+        description = "Your BMI suggests that you are slightly above the normal weight range. Consider incorporating healthy eating habits and regular exercise into your routine to help manage your weight. A healthcare professional can provide personalized advice and support.";
+        imgName = "overM.jpg";
+    } else if (bmi >= 30) {
+        title = "You are in the obese category";
+        description = "Your BMI indicates that you are in the obese category. It may be helpful to seek guidance from a healthcare professional to develop a plan that supports your health and well-being. A balanced approach to diet and exercise can make a significant difference.";
+        imgName = "obeseM.jpg";
+    }
+
+    document.getElementById('title').textContent = title;
+    document.getElementById('description').textContent = description;
+    document.getElementById('bmiImage').src = 'assets/images/'+imgName;
+}
+
+window.onload = displayResults;
+
+
+    </script>
+</head>
+<body>
+    <div class="container-fluid m-0 p-0">
+
+        <div class="row m-0 p-3 d-flex justify-content-center" id="header">
+            <h4 class="logo">Calorie.</h4>
+        </div>
+
+        <div class="row m-0 mt-5 px-5 d-flex justify-content-center align-items-center">
+             <div class="col-md-8 px-4 text-center d-flex justify-content-start align-items-center">
+               
+           </div>
+        </div>
+
+        <div class="row m-0 p-2 px-5 d-flex justify-content-center align-items-center">
+                <div class="col-md-8 ccard">
+                    <div class="iconbg mb-2">
+                        <img src="" id="bmiImage" class="img-fluid">
+                    </div>
+                    <div class="d-block p-2 text-start">
+                    <h3 class="p-4" class="result" id="name"></h3>
+                    <strong class="p-4" id="title"></strong>
+                    <p class="text-secondary p-4" id="description"></p>
+                    </div>
+                </div>
+        </div>
+
+
+    </div>
+</body>
+</html>
